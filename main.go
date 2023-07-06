@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Node struct {
 	prev *Node
 	next *Node
@@ -48,7 +50,7 @@ func (l *list) String() string {
 	result := "["
 	current := l.head
 	for current != nil {
-		result += current.data.(string)
+		result += fmt.Sprint(current.data)
 
 		if current.next != nil {
 			result += ", "
