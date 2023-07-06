@@ -3,6 +3,29 @@ package goqueue
 
 import "fmt"
 
+// Interface Queue
+type Queue interface {
+	Enqueue(data interface{})
+	Dequeue() interface{}
+	String() string
+	Peek() interface{}
+}
+
+// Create new node
+func NewNode(data interface{}) *Node {
+	return &Node{data: data}
+}
+
+// Initialize new queue
+func NewQueue() Queue {
+	l := list{
+		head: nil,
+		tail: nil,
+	}
+
+	return &l
+}
+
 // Linkedlist node (prev, next, data)
 type Node struct {
 	prev *Node
@@ -70,27 +93,4 @@ func (l *list) String() string {
 func (l *list) Peek() interface{} {
 	// Look first data
 	return l.head.data
-}
-
-// Create new node
-func NewNode(data interface{}) *Node {
-	return &Node{data: data}
-}
-
-// Interface Queue
-type Queue interface {
-	Enqueue(data interface{}) //add last
-	Dequeue() interface{}     //remove first
-	String() string
-	Peek() interface{} //lihat data paling awal
-}
-
-// Initialize new queue
-func NewQueue() Queue {
-	l := list{
-		head: nil,
-		tail: nil,
-	}
-
-	return &l
 }
