@@ -1,20 +1,23 @@
+// Implementation queue with linkedlist
 package goqueue
 
 import "fmt"
 
+// Linkedlist node (prev, next, data)
 type Node struct {
 	prev *Node
 	next *Node
 	data interface{}
 }
 
+// Linkedlist (head, tail)
 type list struct {
 	head *Node
 	tail *Node
 }
 
+// Inserts the specified element at the end of this queue
 func (l *list) Enqueue(data interface{}) {
-	// Add last O(1)
 	newNode := NewNode(data)
 	if l.head == nil {
 		l.head = newNode
@@ -26,8 +29,8 @@ func (l *list) Enqueue(data interface{}) {
 	}
 }
 
+// Remove and retrieves the first element of this deque
 func (l *list) Dequeue() interface{} {
-	// Remove first O(1)
 	if l.head == nil {
 		return nil
 	} else if l.head.next == nil && l.head == l.tail { //if only 1 data from list
@@ -45,6 +48,7 @@ func (l *list) Dequeue() interface{} {
 	}
 }
 
+// Get all element in Queue
 func (l *list) String() string {
 	// Print all data in queue
 	result := "["
@@ -62,15 +66,18 @@ func (l *list) String() string {
 	return result
 }
 
+// Retrieves, but does not remove, the first element of this deque
 func (l *list) Peek() interface{} {
 	// Look first data
 	return l.head.data
 }
 
+// Create new node
 func NewNode(data interface{}) *Node {
 	return &Node{data: data}
 }
 
+// Interface Queue
 type Queue interface {
 	Enqueue(data interface{}) //add last
 	Dequeue() interface{}     //remove first
@@ -78,6 +85,7 @@ type Queue interface {
 	Peek() interface{} //lihat data paling awal
 }
 
+// Initialize new queue
 func NewQueue() Queue {
 	l := list{
 		head: nil,
