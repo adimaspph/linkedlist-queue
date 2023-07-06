@@ -13,84 +13,84 @@ type Queue interface {
 
 // Create new node
 func NewNode(data interface{}) *Node {
-	return &Node{data: data}
+	return &Node{Data: data}
 }
 
 // Initialize new queue
 func NewQueue() Queue {
-	l := list{
-		head: nil,
-		tail: nil,
+	l := List{
+		Head: nil,
+		Tail: nil,
 	}
 
 	return &l
 }
 
-// Linkedlist node (prev, next, data)
+// Linkedlist node (Prev, Next, Data)
 type Node struct {
-	prev *Node
-	next *Node
-	data interface{}
+	Prev *Node
+	Next *Node
+	Data interface{}
 }
 
-// Linkedlist (head, tail)
-type list struct {
-	head *Node
-	tail *Node
+// Linkedlist (Head, Tail)
+type List struct {
+	Head *Node
+	Tail *Node
 }
 
 // Inserts the specified element at the end of this queue
-func (l *list) Enqueue(data interface{}) {
+func (l *List) Enqueue(data interface{}) {
 	newNode := NewNode(data)
-	if l.head == nil {
-		l.head = newNode
-		l.tail = newNode
+	if l.Head == nil {
+		l.Head = newNode
+		l.Tail = newNode
 	} else {
-		newNode.prev = l.tail
-		l.tail.next = newNode
-		l.tail = newNode
+		newNode.Prev = l.Tail
+		l.Tail.Next = newNode
+		l.Tail = newNode
 	}
 }
 
 // Remove and retrieves the first element of this deque
-func (l *list) Dequeue() interface{} {
-	if l.head == nil {
+func (l *List) Dequeue() interface{} {
+	if l.Head == nil {
 		return nil
-	} else if l.head.next == nil && l.head == l.tail { //if only 1 data from list
-		data := l.head.data
-		l.head.next = nil
-		l.head = nil
-		l.tail = nil
+	} else if l.Head.Next == nil && l.Head == l.Tail { //if only 1 Data from List
+		data := l.Head.Data
+		l.Head.Next = nil
+		l.Head = nil
+		l.Tail = nil
 		return data
 	} else {
-		data := l.head.data
-		l.head = l.head.next
-		l.head.prev.next = nil
-		l.head.prev = nil
+		data := l.Head.Data
+		l.Head = l.Head.Next
+		l.Head.Prev.Next = nil
+		l.Head.Prev = nil
 		return data
 	}
 }
 
 // Get all element in Queue
-func (l *list) String() string {
-	// Print all data in queue
+func (l *List) String() string {
+	// Print all Data in queue
 	result := "["
-	current := l.head
+	current := l.Head
 	for current != nil {
-		result += fmt.Sprint(current.data)
+		result += fmt.Sprint(current.Data)
 
-		if current.next != nil {
+		if current.Next != nil {
 			result += ", "
 		}
 
-		current = current.next
+		current = current.Next
 	}
 	result += "]"
 	return result
 }
 
 // Retrieves, but does not remove, the first element of this deque
-func (l *list) Peek() interface{} {
-	// Look first data
-	return l.head.data
+func (l *List) Peek() interface{} {
+	// Look first Data
+	return l.Head.Data
 }
